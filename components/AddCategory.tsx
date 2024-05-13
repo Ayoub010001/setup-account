@@ -41,7 +41,7 @@ function AddCategory({restInfo,handleChange}:RestaurantInfoProps) {
             <Label htmlFor="category">Category Creation</Label>
             <Input id="categories" type="text" placeholder="Add Category" 
                 ref={categoryInput}/>
-            <div className="flex justify-end py-2">
+            <div className="flex justify-end py-1">
                 <Button onClick={
                     ()=>{
                         if (categoryInput.current) {
@@ -51,7 +51,7 @@ function AddCategory({restInfo,handleChange}:RestaurantInfoProps) {
                 }>Add</Button>
             </div>
         </div>
-        <div>
+        <div >
             <Table>
                 <TableCaption>A list of your Categories.</TableCaption>
                 <TableHeader>
@@ -59,13 +59,15 @@ function AddCategory({restInfo,handleChange}:RestaurantInfoProps) {
                         <TableHead>Categories</TableHead>
                     </TableRow>
                 </TableHeader>
-                <TableBody>
-                    {restInfo.categories.map((Category,index) => (
-                    <TableRow key={index}>
-                        <TableCell className="font-medium">{Category}</TableCell>
-                    </TableRow>
-                    ))}
-                </TableBody>
+                <div className='h-[140px] overflow-y-scroll '>
+                    <TableBody>
+                        {restInfo.categories.map((Category,index) => (
+                        <TableRow key={index}>
+                            <TableCell className="font-medium">{Category}</TableCell>
+                        </TableRow>
+                        ))}
+                    </TableBody>
+                </div>
             </Table>
 
         </div>
