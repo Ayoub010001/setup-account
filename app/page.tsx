@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useState  } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress"
@@ -12,13 +12,13 @@ import Pagination from "@/components/Pagination";
 import MockUp from "@/components/MockUp";
 export default function Home() {
  
-  interface restaurant{
+interface restaurant{
     name:string,
     description:string,
     adress:string,
     currency:string,
-    restLogo:string,
-    restCover:string,
+    restLogo:string | ArrayBuffer | null,
+    restCover:string | ArrayBuffer | null,
     categories:string[]
   } 
   const defaultRestInfo: restaurant = {
@@ -34,6 +34,23 @@ export default function Home() {
   const [restInfo, setRestInfo] = useState<restaurant>(defaultRestInfo);
 
 
+  function handleFile(file:File|undefined, type:string){
+    if(file){
+      const reader = new FileReader();
+      reader.onload = () =>{
+        setRestInfo((prevState)=>{
+          if(type === "restLogo"){
+            return {...prevState,
+               restLogo:reader.result}
+          }
+          return {...prevState,
+            restCover:reader.result}
+        })
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+
   function handleChange(value: string, type:string) {
       let arrayNoDuplicates:string[];
       setRestInfo(oldState =>{
@@ -48,7 +65,14 @@ export default function Home() {
           [type]: (type === "categories") ? [...arrayNoDuplicates] :value
         })
       });
-    console.log(restInfo)
+    
+  }
+
+  function handleDelete(deletedElement:string){
+      setRestInfo( prevstate =>{
+        const newArray = prevstate.categories.filter(element => element !== deletedElement);
+        return {...prevstate, categories:newArray};
+      })
   }
 
   const handleCurrencyChange = (newCurrency: string) => {
@@ -56,19 +80,17 @@ export default function Home() {
       ...prevState,
       currency: newCurrency
     }));
-    console.log(restInfo)
   }
 
   const init:number = 1;
   const [currentPage, setCurrentPage]= useState<number>(init);
 
-
   function handleNextPage(){
-      setCurrentPage(prevState =>{
-          if(prevState<3)
-              return prevState+1
-          return prevState
-      });
+    setCurrentPage(prevState =>{
+      if(prevState<3)
+        return prevState+1
+      return prevState
+    });
   }
   function handlePrevPage(){
       setCurrentPage(prevState =>{
@@ -86,17 +108,18 @@ export default function Home() {
                                handleCurrencyChange={handleCurrencyChange}/>;
       case 2:
         return <RestaurantCover restInfo={restInfo}
-                                handleChange={handleChange}
+                                handleFile={handleFile}
                                 />;
       case 3:
         return <AddCategory restInfo={restInfo}
-                            handleChange={handleChange}/>;
+                            handleChange={handleChange}
+                            handleDelete={handleDelete}
+                            />;
       default:
         return null;
     }
   };
-  
-  console.log(currentPage)
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
       <Card className="flex flex-col gap-4 px-12 py-6 ">
@@ -108,8 +131,6 @@ export default function Home() {
         </div>
         <div className="flex justify-between gap-8">
           <div className=" w-[250px] relative flex flex-col items-center justify-center">
-            {/*<img src="/mockup.png" alt="mockup" className="-z-10w-100 absolute top-0" />
-*/}
             <div className="w-[240px] h-[450px] overflow-y-scroll no-scrollbar bg-white rounded-3xl border-8 border-slate-950 mt-2">
               <MockUp restInfo={restInfo}/>
             </div>
