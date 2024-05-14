@@ -31,7 +31,7 @@ function RestaurantInfo({restInfo,handleChange,handleCurrencyChange}:RestaurantI
     <div>
     <h1 className=" font-bold text-3xl">Restaurant Info</h1>
     <p className=" text-sm opacity-65">Please provide the name, description, Address  and Currency of your Restaurant</p>
-    <form className="flex flex-col gap-y-2 mt-2">
+    <form className="flex flex-col gap-y-2 mt-1">
       <div>
         <Label htmlFor="name">Name</Label>
         <Input id="name" type="text" placeholder="Restaurant Name"

@@ -12,16 +12,18 @@ interface restaurant{
   categories:string[]
 }
 
-const defaultCover:string="/restaurantImgs/coverRest.jpg";
-const defaultLogo:string="/restaurantImgs/logoRest.jpg";
+const defaultCover:string="/restaurantImgs/defaultCover.jpg";
+const defaultLogo:string="/restaurantImgs/defaultLogo.png";
 
 
 function MockUp({restInfo}:{restInfo:restaurant}) {
   return (
     <div className=''>
         <div className='w-full h-24 bg-red-900 relative'>
-            <img src={restInfo.restCover?restInfo.restCover.toString():defaultCover} alt="Cover restaurant" className=' bg-slate-400 w-full h-full'/>
-            <div className='overflow-hidden shadow-sm bg-slate-400 border-4 rounded-xl border-slate-100 w-16 h-16 absolute top-16 left-20'>
+            <div className='h-24  overflow-hidden flex justify-center items-center'>
+              <img src={restInfo.restCover?restInfo.restCover.toString():defaultCover} alt="Cover restaurant" className=' bg-slate-400'/>
+            </div>
+            <div className='overflow-hidden shadow-sm bg-slate-400 border-4 rounded-xl border-slate-100 w-16 h-16 flex justify-center items-center absolute top-16 left-20'>
                 <img src={restInfo.restLogo?restInfo.restLogo.toString():defaultLogo} alt="Cover restaurant" className='h-full w-full'/>
             </div>
         </div>
