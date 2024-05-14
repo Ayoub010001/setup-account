@@ -130,8 +130,8 @@ interface restaurant{
           <Progress value={33*currentPage} className="w-full my-4 m-auto"/>
         </div>
         <div className="flex justify-between gap-8">
-          <div className=" w-[250px] relative flex flex-col items-center justify-center">
-            <div className="w-[240px] h-[450px] overflow-y-scroll no-scrollbar bg-white rounded-3xl border-8 border-slate-950 mt-2">
+          <div className=" hidden md:flex w-[250px] relative  flex-col items-center justify-center">
+            <div className=" w-[240px] h-[450px] overflow-y-scroll no-scrollbar bg-white rounded-3xl border-8 border-slate-950 mt-2">
               <MockUp restInfo={restInfo}/>
             </div>
           </div>

@@ -39,6 +39,14 @@ function RestaurantInfo({restInfo,handleChange,handleCurrencyChange}:RestaurantI
            onChange={(e)=> handleChange(e.target.value, e.target.id)}
           />
       </div>
+
+      <div>
+        <Label htmlFor="adress">Adresse</Label>
+        <Input id="adress" type="text" placeholder="Restaurant Adress" 
+              value={restInfo.adress}
+              onChange={(e)=> handleChange(e.target.value, e.target.id)}/>
+      </div>
+
       <div>
         <Label htmlFor="description">Description</Label>
         <Textarea id="description" placeholder="Type your message here." 
@@ -46,12 +54,7 @@ function RestaurantInfo({restInfo,handleChange,handleCurrencyChange}:RestaurantI
             onChange={(e)=> handleChange(e.target.value, e.target.id)}
             />
       </div>
-      <div>
-        <Label htmlFor="adress">Adresse</Label>
-        <Input id="adress" type="text" placeholder="Restaurant Adress" 
-              value={restInfo.adress}
-              onChange={(e)=> handleChange(e.target.value, e.target.id)}/>
-      </div>
+
       <div>
       <Label>Currency</Label>
         <Select value={restInfo.currency} 
